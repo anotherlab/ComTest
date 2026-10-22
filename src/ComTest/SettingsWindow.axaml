@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ComTest" x:Class="ComTest.SettingsWindow" x:DataType="local:SettingsViewModel"
+        Title="ComTest · Connection settings" Width="640" Height="840" MinWidth="540" MinHeight="600"
+        CanResize="True" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid RowDefinitions="Auto,*,Auto" Margin="28,24">
+    <StackPanel Spacing="7" Margin="0,0,0,20">
+      <TextBlock Text="CONFIGURATION" Classes="eyebrow" Foreground="{StaticResource IncomingBrush}" />
+      <TextBlock Text="Connection settings" FontSize="25" FontWeight="SemiBold" />
+      <TextBlock Text="Choose a port and match the settings of your device." Classes="muted" FontSize="12" />
+    </StackPanel>
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Spacing="14" Margin="0,0,10,0" IsEnabled="{Binding IsAvailable}">
+        <Border Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="8" Padding="16">
+          <StackPanel Spacing="9">
+            <TextBlock Text="SAVED PROFILE" Classes="eyebrow" FontSize="10" />
+            <Grid ColumnDefinitions="*,Auto,Auto">
+              <TextBox x:Name="ProfileNameInput" Text="{Binding ProfileName}" PlaceholderText="Profile name" MaxLength="80" Margin="0,0,8,0" />
+              <Button x:Name="LoadSettingsButton" Grid.Column="1" Classes="quiet" Content="Load" Click="LoadClicked" Margin="0,0,8,0" Padding="14,7" />
+              <Button x:Name="SaveSettingsButton" Grid.Column="2" Classes="quiet" Content="Save" Click="SaveClicked" Padding="14,7" />
+            </Grid>
+            <TextBlock Text="{Binding ConfigPath}" Classes="muted" FontSize="10" TextWrapping="Wrap" />
+          </StackPanel>
+        </Border>
+        <StackPanel Spacing="7">
+          <TextBlock Text="Serial port" FontSize="12" />
+          <Grid ColumnDefinitions="*,Auto">
+            <ComboBox x:Name="PortInput" IsEditable="True" ItemsSource="{Binding Ports}"
+                      Text="{Binding PortName, Mode=TwoWay}" PlaceholderText="COM3 or /dev/cu.usbserial…"
+                      Margin="0,0,8,0" />
+            <Button Grid.Column="1" Classes="quiet" Content="Refresh" Click="RefreshClicked" Padding="14,7" />
+          </Grid>
+          <TextBlock Text="Select a detected port from the dropdown, or enter a port name." Classes="muted" FontSize="10" />
+        </StackPanel>
+        <Grid ColumnDefinitions="*,16,*" RowDefinitions="Auto,Auto,16,Auto,Auto,16,Auto,Auto">
+          <TextBlock Text="Baud rate" FontSize="12" Margin="0,0,0,7" />
+          <TextBlock Grid.Column="2" Text="Data bits" FontSize="12" Margin="0,0,0,7" />
+          <ComboBox Grid.Row="1" x:Name="BaudRateInput" IsEditable="True" ItemsSource="{Binding BaudRateOptions}"
+                    Text="{Binding BaudRate, Mode=TwoWay}" PlaceholderText="115200" />
+          <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding DataBitOptions}" SelectedItem="{Binding DataBits}" />
+          <TextBlock Grid.Row="3" Text="Parity" FontSize="12" Margin="0,0,0,7" />
+          <TextBlock Grid.Row="3" Grid.Column="2" Text="Stop bits" FontSize="12" Margin="0,0,0,7" />
+          <ComboBox Grid.Row="4" ItemsSource="{Binding ParityOptions}" SelectedItem="{Binding Parity}" />
+          <ComboBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding StopBitOptions}" SelectedItem="{Binding StopBits}" />
+          <TextBlock Grid.Row="6" Text="Flow control" FontSize="12" Margin="0,0,0,7" />
+          <ComboBox Grid.Row="7" Grid.ColumnSpan="3" ItemsSource="{Binding HandshakeOptions}" SelectedItem="{Binding Handshake}" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" Spacing="28">
+          <CheckBox Content="DTR enabled" IsChecked="{Binding DtrEnable}" FontSize="12" MinHeight="24" />
+          <CheckBox Content="RTS enabled" IsChecked="{Binding RtsEnable}" IsEnabled="{Binding CanSetRts}" FontSize="12" MinHeight="24"
+                    ToolTip.Tip="RTS is managed automatically when hardware flow control is selected" />
+        </StackPanel>
+        <Border Height="1" Background="{StaticResource LineBrush}" />
+        <Grid ColumnDefinitions="*,16,*" RowDefinitions="Auto,Auto">
+          <TextBlock Text="Send encoding" FontSize="12" Margin="0,0,0,7" />
+          <TextBlock Grid.Column="2" Text="Append line ending" FontSize="12" Margin="0,0,0,7" />
+          <ComboBox Grid.Row="1" ItemsSource="{Binding SendModeOptions}" SelectedItem="{Binding SendMode}" />
+          <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding LineEndingOptions}" SelectedItem="{Binding LineEnding}" />
+        </Grid>
+        <CheckBox Content="Follow the latest received and sent data" IsChecked="{Binding AutoScroll}" FontSize="12" MinHeight="24" />
+      </StackPanel>
+    </ScrollViewer>
+    <StackPanel Grid.Row="2" Spacing="16" Margin="0,18,0,0">
+      <TextBlock x:Name="SettingsMessage" Text="{Binding Message}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource OutgoingBrush}" MinHeight="32" />
+      <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" IsEnabled="{Binding IsAvailable}">
+        <Button Content="Cancel" Classes="quiet" Click="CancelClicked" />
+        <Button x:Name="ApplySettingsButton" Content="Apply settings" Classes="primary" Click="ApplyClicked" />
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</Window>

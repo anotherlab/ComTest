@@ -1,0 +1,33 @@
+{
+  "SchemaVersion": 1,
+  "Profiles": {
+    "Port A": {
+      "SerialPort": {
+        "PortName": "COM3",
+        "BaudRate": 115200,
+        "DataBits": 8,
+        "Parity": "None",
+        "StopBits": "One",
+        "Handshake": "None",
+        "DtrEnable": false,
+        "RtsEnable": false
+      },
+      "Sending": { "Mode": "ASCII", "LineEnding": "None" },
+      "Display": { "AutoScroll": true }
+    },
+    "Port B": {
+      "SerialPort": {
+        "PortName": "COM4",
+        "BaudRate": 115200,
+        "DataBits": 8,
+        "Parity": "None",
+        "StopBits": "One",
+        "Handshake": "None",
+        "DtrEnable": false,
+        "RtsEnable": false
+      },
+      "Sending": { "Mode": "ASCII", "LineEnding": "None" },
+      "Display": { "AutoScroll": true }
+    }
+  }
+}

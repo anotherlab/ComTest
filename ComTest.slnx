@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ComTest.Core/ComTest.Core.csproj" />
+    <Project Path="src/ComTest/ComTest.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ComTest.Tests/ComTest.Tests.csproj" />
+  </Folder>
+</Solution>

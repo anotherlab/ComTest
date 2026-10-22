@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+.dotnet/
+.nuget/
+artifacts/
+TestResults/
+*.user
+*.suo
+ComTest.json
+ComTest.json.lock
+ComTest.json.*.tmp

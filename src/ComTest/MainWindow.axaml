@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ComTest" x:Class="ComTest.MainWindow" x:DataType="local:MainViewModel"
+        Title="{Binding WindowTitle}" Width="1220" Height="810" MinWidth="1080" MinHeight="600"
+        WindowStartupLocation="CenterScreen">
+  <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="28,22,28,16">
+    <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,24">
+      <Border Width="44" Height="44" CornerRadius="11" Background="#14372F" Margin="0,0,13,0">
+        <Path Data="M 0,12 L 5,12 L 9,2 L 15,23 L 20,12 L 27,12" Stroke="#52DFC1" StrokeThickness="2.5"
+              Width="28" Height="26" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+        <TextBlock Text="ComTest" FontSize="25" FontWeight="SemiBold" />
+        <TextBlock Text="SERIAL PORT MONITOR" Classes="eyebrow" FontSize="9" />
+      </StackPanel>
+      <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+        <Button x:Name="SettingsButton" Classes="quiet" Click="SettingsClicked" IsEnabled="{Binding CanConfigure}" ToolTip.Tip="Configure port and saved profiles">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <Path Data="M2,4 L18,4 M2,10 L18,10 M2,16 L18,16 M6,1 L6,7 M14,7 L14,13 M8,13 L8,19"
+                  Width="16" Height="16" Stretch="Uniform" Stroke="#AABBD2" StrokeThickness="1.5" VerticalAlignment="Center" />
+            <TextBlock Text="Settings" />
+          </StackPanel>
+        </Button>
+        <Button x:Name="OpenPortButton" Classes="primary" Content="Open port" IsEnabled="{Binding CanOpen}" Click="OpenClicked" />
+        <Button x:Name="ClosePortButton" Classes="quiet" Content="Close port" IsEnabled="{Binding CanClose}" Click="CloseClicked" />
+      </StackPanel>
+    </Grid>
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,16">
+      <Border Background="#17253A" CornerRadius="5" Padding="10,6" Margin="0,0,14,0">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <Ellipse Width="6" Height="6" Classes.connected="{Binding IsOpen}" VerticalAlignment="Center">
+            <Ellipse.Styles>
+              <Style Selector="Ellipse">
+                <Setter Property="Fill" Value="#71829C" />
+              </Style>
+              <Style Selector="Ellipse.connected">
+                <Setter Property="Fill" Value="{StaticResource IncomingBrush}" />
+              </Style>
+            </Ellipse.Styles>
+          </Ellipse>
+          <TextBlock Text="{Binding StateLabel}" FontSize="10" FontWeight="SemiBold" LetterSpacing="1" />
+        </StackPanel>
+      </Border>
+      <TextBlock Grid.Column="1" Text="{Binding PortSummary}" Classes="muted" VerticalAlignment="Center" FontSize="12" TextTrimming="CharacterEllipsis" />
+      <CheckBox Grid.Column="2" Content="Follow latest" IsChecked="{Binding AutoScroll}" FontSize="12" MinHeight="24" VerticalAlignment="Center" />
+    </Grid>
+    <Grid Grid.Row="2" ColumnDefinitions="*,16,*">
+      <local:BufferPanel x:Name="IncomingPanel" DataContext="{Binding Incoming}" Accent="{StaticResource IncomingBrush}" ClearRequested="ClearIncoming" />
+      <local:BufferPanel x:Name="OutgoingPanel" Grid.Column="2" DataContext="{Binding Outgoing}" Accent="{StaticResource OutgoingBrush}" ClearRequested="ClearOutgoing" />
+    </Grid>
+    <Border Grid.Row="3" Margin="0,18,0,0" Padding="20,16" Background="{StaticResource PanelBrush}"
+            BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="10">
+      <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+        <TextBlock Text="TRANSMIT" Classes="eyebrow" FontSize="10" Margin="0,0,0,10" />
+        <TextBlock Grid.Column="1" Text="{Binding SendSummary}" Classes="muted" FontSize="11" Margin="0,0,0,10" />
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" ColumnDefinitions="*,12,Auto">
+          <TextBox x:Name="SendInput" Text="{Binding SendText}" PlaceholderText="Data to send" MaxLength="32768"
+                   FontFamily="{StaticResource MonoFont}" Padding="12,11" VerticalContentAlignment="Center" KeyDown="SendKeyDown" />
+          <Button x:Name="SendButton" Grid.Column="2" Classes="primary" Click="SendClicked" IsEnabled="{Binding CanSend}" MinWidth="112" HorizontalContentAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <TextBlock Text="Send" />
+              <Path Data="M1,6 L14,6 M9,1 L14,6 L9,11" Stroke="#08251F" StrokeThickness="1.6" Width="15" Height="12" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </Grid>
+      </Grid>
+    </Border>
+    <Grid Grid.Row="4" ColumnDefinitions="*,Auto" Margin="0,15,0,0">
+      <TextBlock x:Name="StatusMessage" Text="{Binding Message}" FontSize="11" Classes="muted" TextTrimming="CharacterEllipsis" Margin="0,0,15,0" ToolTip.Tip="{Binding Message}" />
+      <TextBlock Grid.Column="1" Text="{Binding InstanceLabel}" FontSize="11" Foreground="#6D829E" ToolTip.Tip="{Binding Store.FilePath}" />
+    </Grid>
+  </Grid>
+</Window>

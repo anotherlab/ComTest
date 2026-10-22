@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="11.0.0-rc.2.26504.105" />
+  </ItemGroup>
+</Project>

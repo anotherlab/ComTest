@@ -1,0 +1,61 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ComTest.App" RequestedThemeVariant="Dark">
+  <Application.Resources>
+    <SolidColorBrush x:Key="PageBrush">#0B1220</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelBrush">#111D30</SolidColorBrush>
+    <SolidColorBrush x:Key="LineBrush">#25344B</SolidColorBrush>
+    <SolidColorBrush x:Key="MutedBrush">#91A2BC</SolidColorBrush>
+    <SolidColorBrush x:Key="IncomingBrush">#52DFC1</SolidColorBrush>
+    <SolidColorBrush x:Key="OutgoingBrush">#F4C779</SolidColorBrush>
+    <FontFamily x:Key="MonoFont">Cascadia Mono, Menlo, Consolas, monospace</FontFamily>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector="Window">
+      <Setter Property="Background" Value="{StaticResource PageBrush}" />
+      <Setter Property="Foreground" Value="#E9EFF9" />
+      <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="16,10" />
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#52DFC1" />
+      <Setter Property="Foreground" Value="#08251F" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#7FEAD3" />
+      <Setter Property="Foreground" Value="#08251F" />
+    </Style>
+    <Style Selector="Button.quiet">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+      <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+    </Style>
+    <Style Selector="TextBlock.eyebrow">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+      <Setter Property="LetterSpacing" Value="1.5" />
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="SelectableTextBlock.bytes">
+      <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="LineHeight" Value="24" />
+    </Style>
+  </Application.Styles>
+</Application>
